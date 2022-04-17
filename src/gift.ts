@@ -15,3 +15,17 @@ export function addGift(state: IGiftState, id: string, description: string, imag
     }
 }
 
+export function toggleReservation(state: IGiftState, giftId: string): IGiftState {
+    return {
+        ...state,
+        gifts: [
+            ...state.gifts.map(gift => {
+                if (gift.id !== giftId) return gift
+                return {
+                    ...gift,
+                    reservedBy: gift.reservedBy === undefined ? state.currentUser.id : gift.reservedBy === state.currentUser.id ? undefined : gift.reservedBy
+                }
+            })
+        ]
+    }
+}

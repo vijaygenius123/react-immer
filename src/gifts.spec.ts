@@ -1,4 +1,4 @@
-import {addGift} from "./gift";
+import {addGift, toggleReservation} from "./gift";
 import {IGiftState} from "./@types/Gift.type";
 
 const initialState:IGiftState = {
@@ -41,6 +41,26 @@ describe("Adding gifts", () => {
 
     test("Didnt modify the original state", () => {
         expect(initialState.gifts.length).toBe(2)
+    })
+})
+
+describe("Reserving an unreserved gift", () => {
+    const nextState = toggleReservation(initialState, "egghead_subscription")
+
+    test("correctly stores the reservedBy", () => {
+        expect(nextState.gifts[1].reservedBy).toBe(1)
+    })
+
+    test("Didnt modify the original state", () => {
+        expect(initialState.gifts[1].reservedBy).toBe(undefined)
+    })
+})
+
+describe("Reserving an already reserved gift", () => {
+    const nextState = toggleReservation(initialState, "immer_license")
+
+    test("preserves stored reservedBy", () => {
+        expect(nextState.gifts[0].reservedBy).toBe(2)
     })
 })
 
