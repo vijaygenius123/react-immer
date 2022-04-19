@@ -7,7 +7,7 @@ export interface IGift {
     id: string,
     description: string,
     image: string,
-    reservedBy: number | undefined
+    reservedBy?: number | undefined
 }
 
 export interface IGiftState {
