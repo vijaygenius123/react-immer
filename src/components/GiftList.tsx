@@ -1,9 +1,14 @@
-import {getInitialState} from "../gift";
+import {getInitialState, toggleReservation} from "../gift";
 import Gift from "./Gift";
+import {useState} from "react";
 
 function GiftList() {
-    const state = getInitialState()
+    const [state, setState] = useState(() => getInitialState())
     const {users, currentUser, gifts} = state
+
+    const handleReserve = (id: string) => {
+        setState((state) => toggleReservation(state, id))
+    }
 
     return (<>
             <h1 className={"text-4xl"}>Hi, {currentUser?.name}</h1>
@@ -14,7 +19,8 @@ function GiftList() {
             </div>
             <div className={""}>
                 {
-                    gifts.map(gift => <Gift key={gift.id} gift={gift} users={users} currentUser={currentUser}/>)
+                    gifts.map(gift => <Gift key={gift.id} gift={gift} users={users} currentUser={currentUser}
+                                            handleReserve={handleReserve}/>)
                 }
             </div>
         </>
