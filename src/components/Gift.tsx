@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 import {IGift, IUser} from "../@types/Gift.type";
 
 interface IGiftProps {
@@ -9,7 +9,7 @@ interface IGiftProps {
 }
 
 const Gift: React.FC<IGiftProps> =
-    ({gift, users, currentUser, handleReserve}) => {
+    memo(({gift, users, currentUser, handleReserve}) => {
         return (
             <div className={"gift"}>
                 <img src={gift.image} alt={gift.description} className={
@@ -27,7 +27,6 @@ const Gift: React.FC<IGiftProps> =
                 </div>
             </div>
         )
-
-    }
+    })
 
 export default Gift

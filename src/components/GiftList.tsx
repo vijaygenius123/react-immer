@@ -1,14 +1,14 @@
 import {getInitialState, toggleReservation} from "../gift";
 import Gift from "./Gift";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 
 function GiftList() {
     const [state, setState] = useState(() => getInitialState())
     const {users, currentUser, gifts} = state
 
-    const handleReserve = (id: string) => {
+    const handleReserve = useCallback((id: string) => {
         setState((state) => toggleReservation(state, id))
-    }
+    }, [])
 
     return (<>
             <h1 className={"text-4xl"}>Hi, {currentUser?.name}</h1>
